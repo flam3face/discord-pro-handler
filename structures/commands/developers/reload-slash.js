@@ -1,8 +1,9 @@
 const { Client, Message } = require("discord.js");
+const { reload_slash } = require("../../functions/cache_clean");
 
 module.exports = {
-    name: "serverstats",
-    description: "Get shard of server",
+    name: "reloadslash",
+    description: "Reloads a slash command",
     developerOnly: true,
 
     /**
@@ -11,11 +12,11 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    run: async (client, message, args) => {
-        const shard = message.guild.shardId;
 
-        return message.channel.send({
-            content: `This server is on shard #${shard}`
-        })
+    run: async (client, message, args) => {
+        const command = args[0]
+        const output = await reload_slash(command);
+
+        return message.reply(output);
     }
 }

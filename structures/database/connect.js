@@ -1,21 +1,23 @@
 const mongoose = require('mongoose');
-const config = require('../configuration/index')
+const config = require('../configuration/index');
+const { logger } = require('../functions/logger');
 
-async function connect() {
+const connect = async () => {
     mongoose.set('strictQuery', true)
+    mongoose.connect(config.mongodb_url);
 
-    mongoose.connect(config.mongodbURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
 
     mongoose.connection.once("open", () => {
-        console.log("🟩 Connected to mongoose");
+        console.log("\n---------------------")
+        logger("Database integration established", "success")
+        console.log("---------------------")
     });
-
     mongoose.connection.on("error", (error) => {
-        console.log(`🟥 MongoDB connection error: ${error}`);
+        console.log("\n---------------------")
+        logger(`Database connection is experiencing issues: ${error}`, "error")
+        console.log("---------------------")
     })
+
 
     return;
 }

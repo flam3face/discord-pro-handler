@@ -1,9 +1,8 @@
 const { Client, Message } = require("discord.js");
-const { reloadSlash } = require("../../functions/control");
 
 module.exports = {
-    name: "reloadslash",
-    description: "Reloads a slash command",
+    name: "stats",
+    description: "Get the server's shard ID.",
     developerOnly: true,
 
     /**
@@ -12,10 +11,12 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    run: async (client, message, args) => {
-        const command = args[0]
-        const output = await reloadSlash(command);
 
-        return message.reply(output);
+    run: async (client, message, args) => {
+        const shard = message.guild.shardId;
+
+        return message.channel.send({
+            content: `This server is on shard #${shard}`
+        })
     }
 }

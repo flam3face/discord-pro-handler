@@ -1,6 +1,7 @@
 const { PermissionsBitField } = require("discord.js");
-const client = require("../../Client");
-const { developers } = require("../../configuration/index")
+const client = require("../../client");
+const { developers } = require("../../configuration/index");
+const { logger } = require("../../functions/logger");
 
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
@@ -52,11 +53,11 @@ client.on("interactionCreate", async (interaction) => {
 
         await command.run(client, interaction, interaction.options);
     } catch (err) {
-        console.log("\n🟥 An error occurred while processing a slash command:");
+        logger("An error occurred while processing a slash command:", "error")
         console.log(err);
 
         return interaction.reply({
-            content: `:x: An error has occurred while processing a slash command: ${err}`,
+            content: `An error has occurred while processing a slash command: ${err}`,
             ephemeral: true,
         });
     }

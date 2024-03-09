@@ -4,7 +4,7 @@ const ms = require("ms");
 
 module.exports = {
     name: "shard",
-    description: "Get shard of bot",
+    description: "Obtain bot's shard statistics.",
     developerOnly: true,
 
     /**
@@ -13,6 +13,7 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
+
     run: async (client, message, args) => {
         try {
             const shard = client.shard.fetchClientValues("guilds.cache.size");
@@ -41,7 +42,7 @@ module.exports = {
                 })
             })
         } catch (err) {
-            return message.channel.send(`:x: Shard is not enabled!`)
+            return message.channel.send(`Sharding is not activated.`)
         }
     }
 }

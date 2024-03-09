@@ -1,5 +1,5 @@
 const { Client, Message } = require("discord.js");
-const { reloadCommands } = require("../../functions/control");
+const { reload_commands } = require("../../functions/cache_clean");
 
 module.exports = {
     name: "reloadcommand",
@@ -14,7 +14,7 @@ module.exports = {
      */
     run: async (client, message, args) => {
         const command = args[0]
-        const output = await reloadCommands(command);
+        const output = await reload_commands(command);
 
         return message.reply(output);
     }
